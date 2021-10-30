@@ -38,6 +38,13 @@ async function run() {
             res.json(service);
         });
 
+        // GET EVENTS API
+        app.get('/events', async (req, res) => {
+            const cursor = eventCollection.find({});
+            const events = await cursor.toArray();
+            res.send(events);
+        });
+
         // POST API
         app.post('/events', async (req, res) => {
             const event = req.body;
