@@ -50,7 +50,14 @@ async function run() {
             const event = req.body;
             const result = await eventCollection.insertOne(event);
             res.json(result)
-        })
+        });
+
+        // POST SERVICE API
+        app.post('/services', async (req, res) => {
+            const service = req.body;
+            const result = await servicesCollection.insertOne(service);
+            res.json(result);
+        });
     }
     finally {
         // await client.close();
