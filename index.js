@@ -21,6 +21,7 @@ async function run() {
 
         const database = client.db('bdTravelAgency');
         const servicesCollection = database.collection('destination');
+        const eventCollection = database.collection('events');
 
         // GET API
         app.get('/services', async (req, res) => {
@@ -35,6 +36,13 @@ async function run() {
             const query = { _id: ObjectId(id) };
             const service = await servicesCollection.findOne(query);
             res.json(service);
+        });
+
+        // POST API
+        app.post('/events', async (req, res) => {
+            const event = req.body;
+            const result = await eventCollection.insertOne(event);
+            res.json(result)
         })
     }
     finally {
