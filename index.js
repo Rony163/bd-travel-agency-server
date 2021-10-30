@@ -45,6 +45,22 @@ async function run() {
             res.send(events);
         });
 
+        // GET API FOR EVENTS
+        app.get('/events/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const event = await eventCollection.findOne(query);
+            res.json(event);
+        });
+
+        // DELETE EVENT API
+        app.delete('/events/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) }
+            const result = await eventCollection.deleteOne(query);
+            res.json(result);
+        })
+
         // POST API
         app.post('/events', async (req, res) => {
             const event = req.body;
