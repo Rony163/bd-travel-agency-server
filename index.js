@@ -74,6 +74,21 @@ async function run() {
             const result = await servicesCollection.insertOne(service);
             res.json(result);
         });
+
+        // UPDATE STATUS
+        app.put('/events/:id', async (req, res) => {
+            const id = req.params.id;
+            const filter = { _id: ObjectId(id) };
+            const options = { upsert: true };
+            const updateDoc = {
+                $set: {
+                    status: "Approved"
+                },
+            };
+            const result = await eventCollection.updateOne(filter, updateDoc, options);
+            console.log(result)
+            res.json(result)
+        })
     }
     finally {
         // await client.close();
